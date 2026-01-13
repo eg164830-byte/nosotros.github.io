@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi amor, aquí está todo para ti 🌻</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="282.css">
+</head>
+<body>
+
+    <canvas id="heartsCanvas"></canvas>
+
+    <div class="container">
+
+        <details class="globo" data-audio="audio1" data-next="globo2">
+            <summary>Flor de mi vida 🌻</summary>
+            <div class="contenido">
+                <p>Un día como hoy, hace dos años, una niña llegó a mi vida y me convirtió en el niño más feliz del mundo.
+                Aceptaste estar conmigo pese a mis defectos, ya se que no te gusta que diga que tengo defectos pero los
+            defectos me hacen ser quien soy yo y es lo que me llevo a tu lado, desde que te conoci fue especial, eras una
+        simple amiga, fuimos avanzando poco a poco y empeze a sentir cosas por ti, no se si fue bueno o malo pero ya no te vi
+    como una amiga, despues quede flechado y eso llevo a confesar mi amor por ti, yo no estaba seguro si aceptarias o no pero de todos modos
+me atrevi y gracias a eso, actualmente estamos felizmente juntos ♥</p>
+                
+                <div class="next-btn-container">
+                    <button class="next-btn" onclick="unlockNext(this)">Visto 💛 Siguiente</button>
+                </div>
+            </div>
+        </details>
+
+        <details class="globo locked" id="globo2" data-audio="audio2" data-next="globo3">
+            <summary>Mi amor ♥</summary>
+            <div class="contenido">
+                <p>Holis flanesita, este es el segundo capitulo de nuestra vida, fue cuando empezamos a estar juntos,
+                    recuerdo bien como eramos al principio, unos tortolitos nervisosos y timidos, cuando querias escuchar 
+                    mi voz y yo la tuya, querer pasar todo el dia juntos y dormir hasta las 3am por estar en llamada, fue 
+                    el crecimiento de una relacion muy bonita, asi mismo fue el crecimiento de tal vez una de mis peores etapas,
+                    era un celoso toxico que no actuaba bien y pese a eso, estas conmigo, ya cambie pero me quiero disculpar por esa 
+                    etapa, a lo que voy, quiero darte las gracias por estar a mi lado en las buenas y las malas, te aprecio mi vida...
+                </p>
+                
+                <div class="next-btn-container">
+                    <button class="next-btn" onclick="unlockNext(this)">Visto 💛 Siguiente</button>
+                </div>
+            </div>
+        </details>
+
+        
+        <details class="globo locked" id="globo3" data-audio="audio3" data-next="globo4">
+            <summary>Nosotros ⛪</summary>
+            <div class="contenido">
+                <p>Camaron sin cola, eras una bromista y eso me cautivo mucho, asi como tu caracter, me encanta 
+                    todo de ti, tanto lo bueno como lo malo, este es el tercer capitulo de nuestra vida, tal vez es el mas
+                    dificil, recuerdo como tus padres se interpusieron y no los culpo, to tambien seria asi como padre pero 
+                    fue dificil para nosotros que nos intentaron separar, yo me disculpe como nunca porque se que tengo cierta
+                    culpa aunque digas que no, fuimos fuertes y eso nos llevo a donde estamos auqnue tu te llevaste la peor parte
+                    y recibiste castigos y regaños por la culpa de un niño que esta lejos de ti, te adoro y te apoyo mi vida,
+                    estare contigo siempre y no lo dudes.
+                </p>
+                
+                <div class="next-btn-container">
+                    <button class="next-btn" onclick="unlockNext(this)">Visto 💛 Siguiente</button>
+                </div>
+            </div>
+        </details>
+
+        <details class="globo locked" id="globo4" data-audio="audio4">
+            <summary>Nuestro futuro juntos 💍</summary>
+            <div class="contenido">
+                <p style="text-align:center; font-size:1.5rem;">
+                    28 de Enero, 2026<br><br>
+                    Prometo hacerte feliz todos los días que vengan.<br>
+                    Esta historia lleva 2 años y espero mas para nosotros
+                    solo nos queda esperar para ver que nos depara el futuru.
+                    Aceptas seguir a mi lado?🌻❤️
+                </p>
+            </div>
+        </details>
+
+    </div>
+
+   
+    <audio id="audio1" loop preload="auto">
+        <source src="ed sheeran - perfect (official music video) subtitulos español.mp3" type="audio/mpeg">
+    </audio>
+     <audio id="audio2" loop preload="auto">
+        <source src="Coldplay - The Scientist [Letra en español].mp3" type="audio/mpeg">
+    </audio>
+    <audio id="audio3" loop preload="auto">
+        <source src="Zzoilo, Aitana - Mon Amour Remix (Music Video).mp3" type="audio/mpeg">
+    </audio>
+    <audio id="audio4" loop preload="auto">
+        <source src="Los Primos MX - Mi Bello Ángel.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        let currentAudio = null;
+
+        
+        document.querySelectorAll('.globo').forEach(detail => {
+            detail.addEventListener('toggle', function() {
+                if (!this.classList.contains('locked')) {  // solo si está desbloqueado
+                    const audioId = this.getAttribute('data-audio');
+                    const audioElement = document.getElementById(audioId);
+
+                    if (this.open) {
+                        if (currentAudio && currentAudio !== audioElement) {
+                            currentAudio.pause();
+                        }
+                        audioElement.play().catch(err => console.log("Error:", err));
+                        currentAudio = audioElement;
+                    } else {
+                        if (audioElement) audioElement.pause();
+                        if (currentAudio === audioElement) currentAudio = null;
+                    }
+                }
+            });
+        });
+
+       
+        function unlockNext(btn) {
+            const currentGlobo = btn.closest('details');
+            const nextId = currentGlobo.getAttribute('data-next');
+            
+            if (nextId) {
+                const nextGlobo = document.getElementById(nextId);
+                if (nextGlobo) {
+                    nextGlobo.classList.remove('locked');
+                    
+                    nextGlobo.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+            
+        
+            btn.textContent = "¡Listo! 💕";
+            btn.disabled = true;
+        }
+
+        
+        const canvas = document.getElementById('heartsCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let hearts = [];
+
+        function createHeart() {
+            return {
+                x: Math.random() * canvas.width,
+                y: -50,
+                size: Math.random() * 30 + 15,
+                speed: Math.random() * 2 + 1.5,
+                rotation: Math.random() * 360,
+                color: ['#ff69b4', '#ff1493', '#ffb6c1', '#d81b60'][Math.floor(Math.random()*4)]
+            };
+        }
+
+        function animate() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            if (Math.random() < 0.05) hearts.push(createHeart());
+
+            hearts.forEach((h, i) => {
+                h.y += h.speed;
+                h.rotation += 0.8;
+                if (h.y > canvas.height + 50) hearts.splice(i,1);
+                else {
+                    ctx.save();
+                    ctx.translate(h.x, h.y);
+                    ctx.rotate(h.rotation * Math.PI / 180);
+                    ctx.fillStyle = h.color;
+                    ctx.beginPath();
+                    ctx.moveTo(0, -h.size/2);
+                    ctx.bezierCurveTo(h.size/2, -h.size, h.size, -h.size/2, 0, h.size/2);
+                    ctx.bezierCurveTo(-h.size, -h.size/2, -h.size/2, -h.size, 0, -h.size/2);
+                    ctx.fill();
+                    ctx.restore();
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+
+</body>
+</html>
